@@ -1,16 +1,35 @@
 from Matriz import Matriz
 import sys
 
-def pivot():
+def criarTabelaAuxiliar(matriz1, matriz2):
+	numeroEstrategias = matriz1.getLinhas()+matriz2.getLinhas()
+
+	# numeroEstrategias de linhas, uma linha para cada variavel de slack
+	# primeira coluna tem os ids da base e a segunda tem o alpha
+	tabela = Matriz.Matriz(numeroEstrategias, numeroEstrategias+2)
+
+	for i in range(0, tabela.getLinhas()):
+		tabela.setValor(i, 0, -i) # variavel de slack (negativo)
+		tabela.setValor(i, 1, 1) # variavel da base
+	return tabela
+
+def equilibrium(tabela, numeroEstrategias):
 	raise NotImplementedError
+
+def pivot(tabela, numeroEstrategias, variavelEntrando):
+	raise NotImplementedError
+
 
 def lemkeHowson(matriz1, matriz2):
 	raise NotImplementedError
 
 	primeiraVariavelBase = 1
+	numeroEstrategias = matriz1.getLinhas()
 	variavelBase = pivot()
-	while variavelBase != primeiraVariavelBase:
-		variavelBase = pivot()
+	while abs(variavelBase) != primeiraVariavelBase:
+		variavelBase = pivot(tabela, numeroEstrategias, -variavelBase)
+
+	return equilibrium(tabela, numeroEstrategias)
 
 def main(arquivoJogador1, arquivoJogador2):
 	with open(arquivoJogador1, 'r') as fin:
