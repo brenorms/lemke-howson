@@ -51,6 +51,7 @@ class Matriz:
 
 		self._matriz[linha][coluna] = valor
 
+
 	@staticmethod
 	def criarMatrizPorTexto(texto, funcaoDeCast):
 		linhasTexto = texto.split('\n')
